@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mackenzie Thompson — Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Jost:wght@200;300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --linen:      #FAF7F2;
+  --sand:       #F0EAE0;
+  --sand-mid:   #DDD3C3;
+  --sand-deep:  #BFB09C;
+  --terra:      #C4643A;
+  --terra-pale: #F5EAE4;
+  --terra-mid:  #D9775E;
+  --sage:       #6B8C75;
+  --sage-pale:  #EAF0EC;
+  --ink:        #1A1612;
+  --ink-mid:    #4A3F35;
+  --ink-soft:   #7A6E63;
+  --ink-dim:    #A8998A;
+  --rule:       1px solid var(--sand-mid);
+  --font-disp:  'Playfair Display', Georgia, serif;
+  --font-body:  'Jost', system-ui, sans-serif;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --t:          0.3s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--linen);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(250,247,242,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem,5vw,5rem);
+  height: 68px;
+}
+
+.nav-logo {
+  font-family: var(--font-disp);
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color var(--t);
+}
+.nav-links a:hover { color: var(--terra); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { width: 22px; height: 1px; background: var(--ink-mid); }
+
+/* PAGE / LAYOUT */
+.page { display: none; padding-top: 68px; min-height: 100vh; }
+.page.active { display: block; }
+
+.container { max-width: 1160px; margin: 0 auto; padding: 0 clamp(1.5rem,5vw,5rem); }
+section { padding: clamp(3.5rem,7vw,6.5rem) 0; }
+
+/* TYPE */
+h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(3.2rem,7vw,6.5rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+h2 { font-family: var(--font-disp); font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; line-height: 1.1; }
+h3 { font-family: var(--font-disp); font-size: clamp(1.2rem,2.5vw,1.75rem); font-weight: 700; line-height: 1.25; }
+h4 { font-family: var(--font-body); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-dim); }
+p { color: var(--ink-mid); }
+.body-serif { font-family: var(--font-serif); font-size: 1rem; line-height: 1.9; color: var(--ink-mid); }
+.label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra); display: block; margin-bottom: 0.75rem; }
+hr.div { border: none; border-top: var(--rule); margin: clamp(2rem,4vw,3.5rem) 0; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 2rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: none; transition: var(--t); }
+.btn-terra { background: var(--terra); color: #fff; }
+.btn-terra:hover { background: #A84E27; }
+.btn-ghost { background: transparent; color: var(--ink-mid); border: 1px solid var(--sand-deep); }
+.btn-ghost:hover { background: var(--sand); border-color: var(--ink-mid); }
+
+/* TAGS */
+.tag { display: inline-block; padding: 0.22rem 0.65rem; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.08em; background: var(--sand); color: var(--ink-soft); border-radius: 20px; }
+.tag-terra { background: var(--terra-pale); color: var(--terra); }
+.tag-sage  { background: var(--sage-pale); color: var(--sage); }
+
+/* IMG PLACEHOLDER */
+.img-ph { background: var(--sand); display: flex; align-items: center; justify-content: center; width: 100%; }
+.img-ph-lbl { font-family: var(--font-body); font-size: 0.7rem; font-weight: 300; letter-spacing: 0.06em; color: var(--ink-dim); text-align: center; padding: 1rem; }
+
+/* CARD */
+.card { background: #fff; border: var(--rule); overflow: hidden; transition: box-shadow var(--t), transform var(--t); }
+.card:hover { box-shadow: 0 12px 40px rgba(26,22,18,0.09); transform: translateY(-3px); }
+.card-body { padding: 1.75rem; }
+.card-body p { font-size: 0.88rem; margin-top: 0.5rem; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.85rem; }
+.card-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terra); background: none; border: none; cursor: pointer; padding: 0; transition: gap var(--t); }
+.card-link:hover { gap: 0.7rem; }
+
+/* GRIDS */
+.gap-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.gap-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+
+/* HERO */
+.hero-wrap { min-height: calc(100vh - 68px); display: grid; grid-template-rows: 1fr auto; }
+.hero-top { display: grid; grid-template-columns: 1.1fr 0.9fr; border-bottom: var(--rule); }
+.hero-name-block { padding: clamp(3rem,7vw,6rem) clamp(1.5rem,5vw,5rem); border-right: var(--rule); display: flex; flex-direction: column; justify-content: flex-end; }
+.hero-name-block .label { margin-bottom: 1.25rem; }
+.hero-name-block h1 .line2 { display: block; color: var(--terra); font-style: italic; }
+.hero-photo-col { display: flex; flex-direction: column; }
+.hero-photo { flex: 1; background: var(--sand); display: flex; align-items: center; justify-content: center; min-height: 300px; }
+.hero-photo-lbl { font-family: var(--font-body); font-size: 0.7rem; color: var(--ink-dim); text-align: center; }
+.hero-caption { padding: 1.25rem clamp(1.5rem,3vw,2.5rem); border-top: var(--rule); font-family: var(--font-serif); font-style: italic; font-size: 0.88rem; color: var(--ink-soft); line-height: 1.6; }
+
+/* STATS BAR */
+.hero-bottom { display: grid; grid-template-columns: repeat(3, 1fr); border-top: var(--rule); }
+.hero-bottom-cell { padding: 1.75rem clamp(1rem,3vw,2rem); border-right: var(--rule); }
+.hero-bottom-cell:last-child { border-right: none; }
+.hbc-num { font-family: var(--font-disp); font-size: 2.6rem; font-weight: 900; color: var(--terra); line-height: 1; margin-bottom: 0.2rem; }
+
+/* ABOUT */
+.intro-block { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(3rem,6vw,6rem); align-items: start; }
+.side-stats { display: flex; flex-direction: column; border: var(--rule); }
+.stat-cell { padding: 1.5rem; border-bottom: var(--rule); }
+.stat-cell:last-child { border-bottom: none; }
+.stat-num { font-family: var(--font-disp); font-size: 2rem; font-weight: 900; color: var(--terra); line-height: 1; }
+.stat-lbl { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.06em; color: var(--ink-soft); margin-top: 0.2rem; }
+
+/* PROJECT PAGES */
+.proj-hero { background: var(--sand); border-bottom: var(--rule); padding: clamp(3rem,6vw,5rem) 0 clamp(2rem,4vw,3.5rem); }
+.proj-meta-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 0; border: var(--rule); margin-top: 2rem; background: var(--sand-mid); }
+.pmc { background: var(--sand); padding: 1rem 1.5rem; }
+.pmc h4 { margin-bottom: 0.25rem; }
+.pmc p { font-size: 0.82rem; }
+.proj-body { padding: clamp(2.5rem,5vw,5rem) 0; }
+.proj-sec { margin-bottom: 3.5rem; }
+.proj-sec > h3 { padding-left: 1.25rem; border-left: 3px solid var(--terra); margin-bottom: 1rem; }
+
+/* RESULTS */
+.results-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 1px; background: var(--sand-mid); border: var(--rule); margin: 1.5rem 0; }
+.res-cell { background: #fff; padding: 1.5rem; text-align: center; }
+.res-num { font-family: var(--font-disp); font-size: 2.2rem; font-weight: 900; color: var(--terra); line-height: 1; }
+.res-unit { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--ink-dim); margin-top: 0.1rem; }
+.res-lbl { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft); margin-top: 0.5rem; }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 1.25rem 0; }
+th { background: var(--sand); padding: 0.75rem 1rem; text-align: left; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-soft); border: var(--rule); }
+td { padding: 0.7rem 1rem; border: var(--rule); color: var(--ink-mid); vertical-align: top; }
+tr:nth-child(even) td { background: var(--linen); }
+.rh { color: #B33E2A; font-weight: 500; }
+.rm { color: #B37A28; font-weight: 500; }
+.rl { color: var(--sage); font-weight: 500; }
+
+/* CHART */
+.chart-box { background: #fff; border: var(--rule); padding: 1.5rem; margin: 1.5rem 0; }
+.chart-title { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 1rem; }
+.chart-bars { display: flex; align-items: flex-end; gap: 5px; height: 110px; }
+.bw { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+.b { width: 100%; background: var(--sand-deep); border-radius: 1px 1px 0 0; }
+.b.hi { background: var(--terra-mid); }
+.bl { font-size: 0.6rem; color: var(--ink-dim); }
+
+/* CALLOUT */
+.callout { background: var(--terra-pale); border-left: 3px solid var(--terra); padding: 1.25rem 1.5rem; margin: 1rem 0; }
+.callout p { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; color: var(--ink-mid); max-width: none; }
+
+/* AWARD */
+.award { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--sage-pale); border: 1px solid rgba(107,140,117,0.3); color: var(--sage); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 1.25rem; }
+
+/* BACK BTN */
+.back-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); background: none; border: none; cursor: pointer; padding: 1.5rem 0 0; transition: color var(--t), gap var(--t); }
+.back-btn:hover { color: var(--terra); gap: 0.75rem; }
+
+/* CONTACT */
+.contact-band { background: var(--sand); border-top: var(--rule); border-bottom: var(--rule); padding: clamp(4rem,8vw,7rem) 0; }
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,6vw,6rem); align-items: center; }
+.contact-links { display: flex; flex-direction: column; gap: 1px; border: var(--rule); }
+.contact-link { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 2rem; background: #fff; text-decoration: none; color: var(--ink); transition: background var(--t); border-bottom: var(--rule); }
+.contact-link:last-child { border-bottom: none; }
+.contact-link:hover { background: var(--linen); }
+.cl-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--terra-pale); display: flex; align-items: center; justify-content: center; color: var(--terra); font-size: 1rem; font-weight: 700; flex-shrink: 0; }
+.cl-head { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+.cl-body { font-size: 0.88rem; color: var(--ink-mid); margin-top: 0.1rem; }
+
+/* FOOTER */
+footer { border-top: var(--rule); padding: 1.75rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+footer p { font-size: 0.72rem; color: var(--ink-dim); letter-spacing: 0.05em; max-width: none; }
+.footer-right { display: flex; gap: 0.75rem; }
+.footer-btn { font-size: 0.7rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); background: none; border: 1px solid var(--sand-mid); cursor: pointer; padding: 0.3rem 0.75rem; transition: color var(--t), border-color var(--t); border-radius: 2px; }
+.footer-btn:hover { color: var(--terra); border-color: var(--terra); }
+
+/* PHOTO 2-COL GRID */
+.photo-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-top { grid-template-columns: 1fr; }
+  .hero-name-block { border-right: none; border-bottom: var(--rule); justify-content: flex-start; }
+  .intro-block { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .hero-bottom { grid-template-columns: 1fr; }
+  .hero-bottom-cell { border-right: none; border-bottom: var(--rule); }
+  .hero-bottom-cell:last-child { border-bottom: none; }
+  .nav-links { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--linen); border-bottom: var(--rule); padding: 1.5rem clamp(1.5rem,5vw,5rem); gap: 1.2rem; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">Mackenzie Thompson</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="showPage('home');closeMenu()">Home</a></li>
+    <li><a href="#" onclick="showPage('capstone');closeMenu()">Thesis</a></li>
+    <li><a href="#" onclick="showPage('consulting');closeMenu()">Consulting</a></li>
+    <li><a href="#" onclick="showPage('design');closeMenu()">Design</a></li>
+    <li><a href="#" onclick="showPage('contact');closeMenu()">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="hero-wrap">
+    <!-- HERO TOP -->
+    <div class="hero-top">
+      <div class="hero-name-block">
+        <span class="label">Engineering Portfolio · 2026</span>
+        <h1>Mackenzie<span class="line2">Thompson.</span></h1>
+        <p style="margin-top:2rem;font-family:var(--font-serif);font-size:1rem;line-height:1.85;max-width:50ch;">
+          Graduate Mechanical Engineer from UTS focused on systems design, thermal modelling, project management, and sustainability analysis. Seeking roles in engineering consulting and infrastructure project delivery.
+        </p>
+        <div style="display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;">
+          <button class="btn btn-terra" onclick="showPage('capstone')">View Thesis →</button>
+          <button class="btn btn-ghost" onclick="showPage('contact')">Get In Touch</button>
+        </div>
+      </div>
+      <div class="hero-photo-col">
+        <div class="hero-photo">
+          <div class="hero-photo-lbl">
+            [ Photo of Mackenzie Thompson ]<br>
+            <span style="font-size:0.62rem;display:block;margin-top:0.3rem;">Professional portrait · lab · rowing</span>
+          </div>
+        </div>
+        <div class="hero-caption">
+          "Good engineers solve the problem they're given. Great engineers first ask if it's the right problem to solve."
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO STATS BAR -->
+    <div class="hero-bottom">
+      <div class="hero-bottom-cell">
+        <div class="hbc-num">UTS</div>
+        <h4>Bachelor of Engineering — Mechanical</h4>
+      </div>
+      <div class="hero-bottom-cell">
+        <div class="hbc-num">84.1</div>
+        <h4>WAM · First Class Honours</h4>
+      </div>
+      <div class="hero-bottom-cell">
+        <div class="hbc-num">16</div>
+        <h4>High Distinction Grades · 53.6% of core subjects</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT / BACKGROUND -->
+  <section>
+    <div class="container">
+      <div class="intro-block">
+        <div>
+          <span class="label">Background</span>
+          <h2>Motivated · Empathetic · Collaborative.</h2>
+          <p class="body-serif" style="margin-top:1.5rem;">
+            My engineering education at UTS has centred on learning to analyse a range of complex systems, from thermal and mechanical design to financial risk and sustainability policy. Across numerous projects, I've moved between analytical rigour and stakeholder communication, building the cross-disciplinary skillset that engineering demands.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:2rem;">
+            <span class="tag tag-terra">MATLAB</span>
+            <span class="tag tag-terra">SolidWorks</span>
+            <span class="tag tag-terra">Excel</span>
+            <span class="tag tag-terra">Systems Analysis</span>
+            <span class="tag">Thermal Modelling</span>
+            <span class="tag">Project Management</span>
+            <span class="tag">Risk Evaluation</span>
+            <span class="tag">Sustainability Analysis</span>
+            <span class="tag">Stakeholder Communication</span>
+            <span class="tag">Embedded Systems</span>
+            <span class="tag">CAD</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="side-stats">
+          <div class="stat-cell">
+            <div class="stat-num">2nd</div>
+            <div class="stat-lbl">Highest Cohort Temperature — Solar BBQ</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">12×</div>
+            <div class="stat-lbl">Project Lead</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num" style="font-size:1.25rem;line-height:1.4;">Industry<br>Experience</div>
+            <div class="stat-lbl">Design Engineer Intern · Dematic Australia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECT -->
+  <section style="background:var(--sand);border-top:var(--rule);border-bottom:var(--rule);">
+    <div class="container">
+      <span class="label">Featured Project — Thesis</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:var(--rule);background:var(--sand-mid);">
+        <div class="img-ph" style="aspect-ratio:4/3;background:var(--sand);">
+          <div class="img-ph-lbl">[ Thesis system photo / experimental setup ]</div>
+        </div>
+        <div style="background:#fff;padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <span class="label">PCM Thermal Management System</span>
+            <h2 style="font-size:clamp(1.2rem,2.2vw,1.9rem);line-height:1.25;">Analytical control of latent thermal energy storage using phase change materials.</h2>
+            <p class="body-serif" style="margin-top:1.25rem;font-size:0.88rem;">
+              The project focused on creating a fast and reliable simulation tool to reduce the amount of physical testing required during development. Two MATLAB models were validated against experimental data, predicting system performance with 94% outlet temperature accuracy.
+            </p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem;">
+              <span class="tag">Thermal Engineering</span>
+              <span class="tag">MATLAB</span>
+              <span class="tag">Experimental Validation</span>
+            </div>
+          </div>
+          <button class="btn btn-terra" style="margin-top:2rem;align-self:flex-start;" onclick="showPage('capstone')">Full Case Study →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT INDEX -->
+  <section>
+    <div class="container">
+      <span class="label">All Projects</span>
+      <h2>Project Index</h2>
+      <hr class="div">
+      <div class="gap-2" style="max-width:800px;">
+        <div class="card" onclick="showPage('consulting')" style="cursor:pointer;">
+          <div class="img-ph" style="height:160px;"><div class="img-ph-lbl">Infrastructure &amp; Risk Analysis</div></div>
+          <div class="card-body">
+            <h4>Consulting &amp; Strategy</h4>
+            <h3>Infrastructure Investment &amp; Risk Evaluation</h3>
+            <p>Financial modelling, risk analysis, and biomass sustainability investigation.</p>
+            <div class="card-tags"><span class="tag">Financial Modelling</span><span class="tag">Risk Analysis</span><span class="tag">Sustainability</span></div>
+            <button class="card-link">View Projects →</button>
+          </div>
+        </div>
+        <div class="card" onclick="showPage('design')" style="cursor:pointer;">
+          <div class="img-ph" style="height:160px;"><div class="img-ph-lbl">Design Projects</div></div>
+          <div class="card-body">
+            <h4>Design &amp; Stakeholder</h4>
+            <h3>Rocket Stand · Solar BBQ · Klip-Board</h3>
+            <p>Client-focused design, iterative prototyping, and stakeholder communication.</p>
+            <div class="card-tags"><span class="tag">CAD</span><span class="tag">Client-Focused</span><span class="tag">Prototyping</span></div>
+            <button class="card-link">View Projects →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><footer>
+    <p>© 2026 Mackenzie Thompson · Graduate Mechanical Engineer · University of Technology Sydney</p>
+    <div class="footer-right">
+      <button class="footer-btn" onclick="showPage('home')">Home</button>
+      <button class="footer-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+    </div>
+  </footer></div>
+</div>
+
+<!-- ══════════════════ THESIS ══════════════════ -->
+<div class="page" id="page-capstone">
+  <div class="container"><button class="back-btn" onclick="showPage('home')">← Back to Home</button></div>
+
+  <div class="proj-hero">
+    <div class="container">
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <span class="tag tag-terra">Capstone Project</span>
+        <span class="tag">2025</span>
+        <span class="tag">Mechanical Engineering</span>
+      </div>
+      <h1 style="font-size:clamp(2rem,5vw,4.5rem);">PCM-Based Thermal<br><em style="color:var(--terra);">Management</em> System</h1>
+      <p style="margin-top:1.25rem;font-family:var(--font-serif);font-size:1rem;line-height:1.85;max-width:70ch;">
+        Development of analytical MATLAB models and experimental validation methods for a phase change material (PCM) thermal energy storage system designed to suppress transient thermal loads.
+      </p>
+      <div class="proj-meta-row">
+        <div class="pmc"><h4>Role</h4><p>Lead Thermal Analyst &amp; Systems Integration</p></div>
+        <div class="pmc"><h4>Tools</h4><p>MATLAB · Test Rig</p></div>
+        <div class="pmc"><h4>Duration</h4><p>12 months</p></div>
+        <div class="pmc"><h4>Team</h4><p>3 Engineers</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container proj-body">
+
+    <div class="img-ph" style="height:380px;border:var(--rule);margin-bottom:3.5rem;">
+      <div class="img-ph-lbl">[ Full system photograph / experimental setup ]</div>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Project Context</h3>
+      <p class="body-serif">
+        The project investigated how phase change materials (PCMs) can be used as temporary thermal buffers to absorb transient heat loads in cooling systems. The broader goal was to develop a validated analytical modelling approach capable of reducing dependence on lengthy experimental testing.
+      </p>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Problem</h3>
+      <p class="body-serif">
+        Conventional thermal management systems are typically designed around steady-state operating conditions, making them inefficient for applications dominated by short-duration thermal spikes. Experimental optimisation of these systems is often slow and resource-intensive, requiring repeated physical testing for every design iteration.
+      </p>
+      <h4 style="margin:1.75rem 0 0.75rem;color:var(--terra);">Applications &amp; Future Relevance</h4>
+      <div class="callout">
+        <p>PCM thermal buffering systems have strong potential in aerospace and high-performance computing applications where transient thermal loads and strict mass constraints limit conventional cooling. This technology could support future satellite electronics and space-based data centres by providing lightweight, passive thermal management capable of handling short-duration heat spikes efficiently.</p>
+      </div>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Objective</h3>
+      <p class="body-serif">
+        Develop an analytical MATLAB model capable of predicting the thermal behaviour of a PCM-based latent thermal energy storage system and validate the model against experimental data.
+      </p>
+      <p class="body-serif" style="margin-top:0.85rem;">
+        The system was designed to optimise inlet vs outlet temperatures and provide a framework for accelerating future thermal design optimisation.
+      </p>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Methodology</h3>
+      <p class="body-serif">
+        The project combined analytical MATLAB modelling and experimental validation to investigate the thermal behaviour of a PCM-based latent energy storage system. Simulation results were compared directly against physical testing to evaluate system performance, improve model accuracy, and reduce reliance on repeated experimental iteration.
+      </p>
+      <div class="gap-2" style="margin-top:1.5rem;">
+        <div class="img-ph" style="height:220px;border:var(--rule);"><div class="img-ph-lbl">[ MATLAB thermal model — temperature vs time ]</div></div>
+        <div class="img-ph" style="height:220px;border:var(--rule);"><div class="img-ph-lbl">[ Experimental test rig / PCM enclosure setup ]</div></div>
+      </div>
+    </div>
+
+    <div class="proj-sec">
+      <h3>My Contribution</h3>
+      <p class="body-serif">
+        Led the development of the project's analytical MATLAB modelling framework, including transient energy balance calculations, PCM melting analysis, and outlet temperature prediction methods.
+      </p>
+      <p class="body-serif" style="margin-top:0.85rem;">
+        Collaborated with masters students to establish a comparison of analytical predictions against experimental results to improve model reliability and support future optimisation work.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;">
+        <span class="tag tag-terra">MATLAB Modelling</span>
+        <span class="tag tag-terra">Experimental Validation</span>
+        <span class="tag">Transient Energy Analysis</span>
+        <span class="tag">Technical Reporting</span>
+        <span class="tag">Cross-disciplinary Collaboration</span>
+      </div>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Results</h3>
+      <div class="results-row">
+        <div class="res-cell">
+          <div class="res-num">94</div>
+          <div class="res-unit">%</div>
+          <div class="res-lbl">Outlet temperature predictive accuracy</div>
+        </div>
+        <div class="res-cell">
+          <div class="res-num">1.16</div>
+          <div class="res-unit">°C RMSE</div>
+          <div class="res-lbl">Root mean square temperature error</div>
+        </div>
+        <div class="res-cell">
+          <div class="res-num">±0.25</div>
+          <div class="res-unit">°C</div>
+          <div class="res-lbl">Constant temperature variance</div>
+        </div>
+        <div class="res-cell">
+          <div class="res-num">&lt;10</div>
+          <div class="res-unit">seconds</div>
+          <div class="res-lbl">Simulation runtime</div>
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">Predicted vs experimental outlet temperature — validation summary</div>
+        <div class="chart-bars">
+          <div class="bw"><div class="b hi" style="height:60%"></div><div class="bl">T1</div></div>
+          <div class="bw"><div class="b hi" style="height:72%"></div><div class="bl">T2</div></div>
+          <div class="bw"><div class="b hi" style="height:80%"></div><div class="bl">T3</div></div>
+          <div class="bw"><div class="b hi" style="height:88%"></div><div class="bl">T4</div></div>
+          <div class="bw"><div class="b hi" style="height:94%"></div><div class="bl">T5</div></div>
+          <div class="bw"><div class="b" style="height:92%"></div><div class="bl">T6</div></div>
+          <div class="bw"><div class="b" style="height:89%"></div><div class="bl">T7</div></div>
+          <div class="bw"><div class="b" style="height:86%"></div><div class="bl">T8</div></div>
+        </div>
+        <p style="font-size:0.68rem;color:var(--ink-dim);margin-top:0.75rem;max-width:none;">
+          Terracotta = MATLAB model prediction &nbsp;·&nbsp; Sand = Experimental measurements &nbsp;·&nbsp; Replace with actual MATLAB output screenshot
+        </p>
+      </div>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Key Learnings</h3>
+      <p class="body-serif">
+        The project strengthened my understanding of transient thermal systems, experimental validation, and the importance of iterative and collaborative engineering development. It also reinforced the value of analytical modelling as a tool for accelerating engineering design and reducing reliance on costly physical testing.
+      </p>
+    </div>
+
+    <div class="proj-sec">
+      <h3>Gallery</h3>
+      <div class="gap-3">
+        <div class="img-ph" style="height:180px;border:var(--rule);"><div class="img-ph-lbl">[ Test rig photo ]</div></div>
+        <div class="img-ph" style="height:180px;border:var(--rule);"><div class="img-ph-lbl">[ PCM material sample ]</div></div>
+        <div class="img-ph" style="height:180px;border:var(--rule);"><div class="img-ph-lbl">[ Experimental assembly ]</div></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="container"><footer>
+    <p>© 2026 Mackenzie Thompson · Graduate Mechanical Engineer · University of Technology Sydney</p>
+    <div class="footer-right">
+      <button class="footer-btn" onclick="showPage('home')">Home</button>
+      <button class="footer-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+    </div>
+  </footer></div>
+</div>
+
+<!-- ══════════════════ CONSULTING ══════════════════ -->
+<div class="page" id="page-consulting">
+  <div class="container"><button class="back-btn" onclick="showPage('home')">← Back to Home</button></div>
+
+  <div class="proj-hero">
+    <div class="container">
+      <div style="margin-bottom:1.5rem;"><span class="tag tag-terra">Consulting &amp; Strategy</span></div>
+      <h1 style="font-size:clamp(2rem,5vw,4.5rem);">Consulting &amp;<br>Strategy<br><em style="color:var(--terra);">Projects.</em></h1>
+    </div>
+  </div>
+
+  <div class="container proj-body">
+
+    <div class="proj-sec">
+      <span class="label">Project 01 · 2023</span>
+      <h2>Infrastructure Investment &amp; Risk Evaluation</h2>
+      <p style="font-size:0.8rem;color:var(--ink-dim);margin-top:0.3rem;letter-spacing:0.04em;">Atlassian Central Tower vs. Sydney Fish Market Redevelopment</p>
+      <hr class="div">
+
+      <p class="body-serif">
+        Comparative analyses evaluating the financial viability, risk exposure, and strategic fit between the Atlassian Central and the Sydney Fish Market buildings during their construction phase.
+      </p>
+
+      <div class="gap-2" style="margin-top:2rem;align-items:start;">
+        <div>
+          <h4 style="margin-bottom:0.75rem;">Project Comparison</h4>
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>Atlassian Central</th><th>Sydney Fish Market</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Project Type</td><td>Commercial Tech Hub</td><td>Mixed-Use Precinct</td></tr>
+              <tr><td>Investment Scale</td><td>High</td><td>Medium–High</td></tr>
+              <tr><td>Revenue Certainty</td><td>High</td><td>Medium</td></tr>
+              <tr><td>Public Benefit</td><td>High</td><td>High</td></tr>
+              <tr><td>Risk Profile</td><td class="rl">Low</td><td class="rm">Moderate</td></tr>
+            </tbody>
+          </table>
+
+          <h4 style="margin:1.75rem 0 0.75rem;">Viability Indicators</h4>
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>Atlassian Central</th><th>Sydney Fish Market</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>NPV</td><td class="rh">&lt; 0</td><td class="rl">&gt; 0</td></tr>
+              <tr><td>IRR</td><td>2%</td><td>37%</td></tr>
+              <tr><td>BCR</td><td>0.79</td><td>1.20</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="img-ph" style="height:300px;border:var(--rule);align-self:start;">
+          <div class="img-ph-lbl">[ NPV / IRR comparison chart<br>or Excel model screenshot ]</div>
+        </div>
+      </div>
+
+      <h4 style="margin:2rem 0 0.75rem;">Outcomes</h4>
+      <p class="body-serif">
+        The analysis found that the Atlassian Central project offered stronger long-term profitability and lower investment risk compared to the Sydney Fish Market development. While both projects delivered strong public and economic value, Atlassian Central demonstrated greater revenue certainty and a more favourable risk profile during the construction phase.
+      </p>
+
+      <h4 style="margin:1.75rem 0 0.75rem;">My Contribution</h4>
+      <p class="body-serif">
+        Led the financial research and analysis for the report, supporting the evaluation of project viability and investment performance. Assisted with cash flow calculations and delivered the final project presentation, communicating key findings and recommendations to stakeholders.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;">
+        <span class="tag tag-terra">Financial Modelling</span>
+        <span class="tag tag-terra">Risk Analysis</span>
+        <span class="tag">Excel</span>
+        <span class="tag">NPV / IRR / BCR</span>
+        <span class="tag">Stakeholder Presentation</span>
+      </div>
+    </div>
+
+    <hr class="div">
+
+    <div class="proj-sec">
+      <span class="label">Project 02</span>
+      <h2>Is Biomass Carbon Neutral?</h2>
+      <hr class="div">
+
+      <p class="body-serif">
+        This project investigated whether agricultural biomass can be a truly sustainable and carbon-neutral alternative to fossil fuels. The research examined the full process of biomass energy production, including how agricultural waste is collected, converted into energy, and managed within existing environmental and policy frameworks. It also explored the opportunities and challenges associated with using biomass as part of the global transition to cleaner energy sources.
+      </p>
+
+      <div class="gap-2" style="margin-top:2rem;align-items:start;">
+        <div>
+          <h4 style="margin-bottom:0.75rem;">Key Findings</h4>
+          <div class="callout">
+            <p>Biomass is not inherently carbon neutral, but it can become a low-carbon energy source when managed sustainably. Environmental benefits depend on responsible sourcing, effective emissions management, and clear carbon accounting practices.</p>
+          </div>
+
+          <h4 style="margin:1.75rem 0 0.75rem;">My Contribution</h4>
+          <p class="body-serif">
+            Contributed to the investigation of arguments both supporting and challenging biomass carbon neutrality. Analysed three international case studies focused on sugarcane residue, agricultural waste, and bagasse ethanol systems in Brazil, New South Wales, and Bolivia to evaluate their environmental and sustainability outcomes.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;">
+            <span class="tag tag-sage">Lifecycle Analysis</span>
+            <span class="tag tag-sage">Sustainability</span>
+            <span class="tag tag-sage">Policy Review</span>
+            <span class="tag">International Case Studies</span>
+          </div>
+        </div>
+        <div class="img-ph" style="height:280px;border:var(--rule);align-self:start;">
+          <div class="img-ph-lbl">[ Lifecycle emissions diagram /<br>Sankey diagram / carbon chart ]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="container"><footer>
+    <p>© 2026 Mackenzie Thompson · Graduate Mechanical Engineer · University of Technology Sydney</p>
+    <div class="footer-right">
+      <button class="footer-btn" onclick="showPage('home')">Home</button>
+      <button class="footer-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+    </div>
+  </footer></div>
+</div>
+
+<!-- ══════════════════ DESIGN ══════════════════ -->
+<div class="page" id="page-design">
+  <div class="container"><button class="back-btn" onclick="showPage('home')">← Back to Home</button></div>
+
+  <div class="proj-hero">
+    <div class="container">
+      <div style="margin-bottom:1.5rem;"><span class="tag tag-terra">Design &amp; Stakeholder</span></div>
+      <h1 style="font-size:clamp(2rem,5vw,4.5rem);">Design &amp;<br>Stakeholder<br><em style="color:var(--terra);">Projects.</em></h1>
+    </div>
+  </div>
+
+  <div class="container proj-body">
+
+    <!-- ROCKET STAND -->
+    <div class="proj-sec">
+      <span class="label">Project 01 · Client: UTS Rocketry</span>
+      <h2>Static Rocket Fire Stand</h2>
+      <hr class="div">
+
+      <p class="body-serif">
+        UTS Rocketry were seeking a test stand to measure and validate rocket motors prior to launch. There were four main components: the adjustable frame which can be fixed to the ground, a load cell for measuring thrust force, an ignition system, and software to record and visualise the thrust curve on the tested motor.
+      </p>
+      <p class="body-serif" style="margin-top:0.85rem;">
+        This was a highly client-focused project with strict design requirements gathered directly from UTS Rocketry. Throughout the project, continuous collaboration with the key stakeholder was necessary to ensure satisfactory completion.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin-top:2rem;">
+        <div>
+          <h4 style="margin-bottom:0.75rem;">Outcomes</h4>
+          <p class="body-serif" style="font-size:0.92rem;">
+            The final test stand successfully passed all validation testing and met all design requirements. The system demonstrated reliable thrust measurement and data acquisition capabilities during a successful test fire conducted prior to project handover, delivering a functional solution that supports safer rocket motor validation before launch operations.
+          </p>
+          <h4 style="margin:1.75rem 0 0.75rem;">My Contribution</h4>
+          <p class="body-serif" style="font-size:0.92rem;">
+            Led the procurement process, managing documentation and supplier coordination to minimise costs and maximise the available budget. Served as lead assembly operator during system integration and testing. Contributed to CAD design and manufacturing of key structural and mechanical components.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem;">
+            <span class="tag">Stakeholder Comms</span>
+            <span class="tag">Safety &amp; Testing</span>
+            <span class="tag tag-terra">Procurement Lead</span>
+            <span class="tag tag-terra">Assembly Lead</span>
+            <span class="tag">CAD</span>
+          </div>
+        </div>
+        <div class="photo-grid-2">
+          <div class="img-ph" style="height:148px;border:var(--rule);"><div class="img-ph-lbl">[ CAD render ]</div></div>
+          <div class="img-ph" style="height:148px;border:var(--rule);"><div class="img-ph-lbl">[ Physical build ]</div></div>
+          <div class="img-ph" style="height:148px;border:var(--rule);"><div class="img-ph-lbl">[ Load diagram ]</div></div>
+          <div class="img-ph" style="height:148px;border:var(--rule);"><div class="img-ph-lbl">[ Safety detail ]</div></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="div">
+
+    <!-- SOLAR BBQ -->
+    <div class="proj-sec">
+      <span class="label">Project 02</span>
+      <h2>Solar BBQ</h2>
+      <hr class="div">
+      <div class="award">★ 2nd Highest Temperature in Cohort</div>
+
+      <p class="body-serif">
+        The goal of this project was to design, develop, and prototype a solar-powered, portable BBQ that converts solar energy into heat for cooking. The initial concept was a parabolic dish-style design that focused sunlight into a central cooking zone. Through iterative stakeholder feedback and risk analysis, the team pivoted toward a box-style reflective enclosure — improving safety, portability, and manufacturability while better aligning with end-user needs.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin-top:2rem;">
+        <div>
+          <h4 style="margin-bottom:0.75rem;">Project Outcomes</h4>
+          <p class="body-serif" style="font-size:0.92rem;">
+            Achieved the second-highest temperature in the cohort. The revised box-style reflective enclosure improved safety, portability, and manufacturability, reaching 70°C in winter conditions and meeting safe cooking requirements.
+          </p>
+          <h4 style="margin:1.75rem 0 0.75rem;">My Contribution</h4>
+          <p class="body-serif" style="font-size:0.92rem;">
+            Contributed to stakeholder engagement by identifying potential user perspectives and evaluating product expectations. Conducted a needs-versus-wants analysis using QFD to define clear project requirements. Served as Lead CAD Engineer, developing and refining the final system design to improve performance, safety, and manufacturability.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem;">
+            <span class="tag tag-terra">Lead CAD Engineer</span>
+            <span class="tag">QFD Analysis</span>
+            <span class="tag">Stakeholder Engagement</span>
+            <span class="tag">Thermal Optimisation</span>
+            <span class="tag">Portability Design</span>
+          </div>
+        </div>
+        <div class="photo-grid-2">
+          <div class="img-ph" style="height:145px;border:var(--rule);"><div class="img-ph-lbl">[ Solar BBQ photo ]</div></div>
+          <div class="img-ph" style="height:145px;border:var(--rule);"><div class="img-ph-lbl">[ Reflector detail ]</div></div>
+          <div class="img-ph" style="height:145px;border:var(--rule);"><div class="img-ph-lbl">[ Temp results ]</div></div>
+          <div class="img-ph" style="height:145px;border:var(--rule);"><div class="img-ph-lbl">[ Design sketches ]</div></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="div">
+
+    <!-- KLIP-BOARD -->
+    <div class="proj-sec">
+      <span class="label">Project 03 · Product Pitch</span>
+      <h2>Klip-Board — Modular Electric Skateboard</h2>
+      <hr class="div">
+
+      <p class="body-serif">
+        Klip-Board was developed as a modular electric skateboard system aimed at improving accessibility and convenience for university students and urban commuters. The project focused on designing a clip-on electric skateboard truck capable of converting almost any standard skateboard into an electric skateboard through a simple, non-invasive installation process.
+      </p>
+      <p class="body-serif" style="margin-top:0.85rem;">
+        A major design priority was preserving the authentic skateboarding experience by maintaining traditional steering characteristics and allowing full customisation of decks and wheels. Key design considerations included portability, ease of installation, rider safety, and user flexibility — leading to features such as regenerative braking and quick-attach mechanisms. Through market research, feasibility analysis, and engineering evaluation, the final concept demonstrated strong potential as a practical, user-focused personal mobility solution.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin-top:2rem;">
+        <div>
+          <h4 style="margin-bottom:0.75rem;">My Contribution</h4>
+          <p class="body-serif" style="font-size:0.92rem;">
+            Contributed as Lead CAD Engineer, responsible for detailed modelling and integration of the modular truck assembly and mounting system. Assisted stakeholder consultation to identify user expectations, commuting pain points, and desired functionality — guiding iterative design improvements. Also led revenue and feasibility estimation activities, supporting the evaluation of manufacturing practicality, scalability, and overall project viability.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem;">
+            <span class="tag tag-terra">Lead CAD Engineer</span>
+            <span class="tag">Stakeholder Consultation</span>
+            <span class="tag">User-Centred Design</span>
+            <span class="tag">Feasibility Analysis</span>
+            <span class="tag">Modularity</span>
+            <span class="tag">Market Research</span>
+          </div>
+        </div>
+        <div class="img-ph" style="height:250px;border:var(--rule);">
+          <div class="img-ph-lbl">[ Klip-Board CAD render /<br>exploded assembly / user sketch ]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="container"><footer>
+    <p>© 2026 Mackenzie Thompson · Graduate Mechanical Engineer · University of Technology Sydney</p>
+    <div class="footer-right">
+      <button class="footer-btn" onclick="showPage('home')">Home</button>
+      <button class="footer-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+    </div>
+  </footer></div>
+</div>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<div class="page" id="page-contact">
+  <div class="container"><button class="back-btn" onclick="showPage('home')">← Back to Home</button></div>
+
+  <section class="contact-band">
+    <div class="container">
+      <div class="contact-inner">
+        <div>
+          <span class="label">Get In Touch</span>
+          <h1>Let's<br><em style="color:var(--terra);">Connect.</em></h1>
+          <p class="body-serif" style="margin-top:1.5rem;max-width:44ch;">
+            Seeking graduate opportunities in engineering consulting and infrastructure project delivery. I bring first-class academic performance, hands-on industry internship experience, and the ability to communicate complex technical ideas clearly to stakeholders.
+          </p>
+          <p class="body-serif" style="margin-top:1rem;max-width:44ch;">
+            Based in Sydney, NSW. Open to opportunities across Australia.
+          </p>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="https://linkedin.com/in/mackenzie-thompson-61682728a" target="_blank">
+            <div class="cl-icon">in</div>
+            <div>
+              <div class="cl-head">LinkedIn</div>
+              <div class="cl-body">linkedin.com/in/mackenzie-thompson-61682728a</div>
+            </div>
+          </a>
+          <a class="contact-link" href="mailto:Thompson.a.mackenzie@gmail.com">
+            <div class="cl-icon">@</div>
+            <div>
+              <div class="cl-head">Email</div>
+              <div class="cl-body">Thompson.a.mackenzie@gmail.com</div>
+            </div>
+          </a>
+          <a class="contact-link" href="#" download>
+            <div class="cl-icon">↓</div>
+            <div>
+              <div class="cl-head">Resume</div>
+              <div class="cl-body">Download PDF — Mackenzie Thompson 2026</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><footer>
+    <p>© 2026 Mackenzie Thompson · Graduate Mechanical Engineer · University of Technology Sydney</p>
+    <div class="footer-right">
+      <button class="footer-btn" onclick="showPage('home')">Home</button>
+      <button class="footer-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+    </div>
+  </footer></div>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const t = document.getElementById('page-' + id);
+  if (t) { t.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+function closeMenu() { document.getElementById('navLinks').classList.remove('open'); }
+window.addEventListener('resize', () => { if (window.innerWidth > 640) closeMenu(); });
+</script>
+</body>
+</html>
